@@ -12,9 +12,6 @@ public:
 	//edge(int i, int z){}
 	edge(node _begin, node _end)
 	{
-
-
-		//tstststststststt
 		begin = _begin;
 		end = _end;
 		CalcWeigth();
