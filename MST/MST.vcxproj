@@ -130,6 +130,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="edge.h" />
     <ClInclude Include="kruskal.h" />
     <ClInclude Include="node.h" />
   </ItemGroup>

@@ -3,10 +3,10 @@
 
 using namespace std;
 
-
 class node
 {
-	int id=0;
+private:
+	unsigned int id=0;
 	int x=0;
 	int y=0;
 public:
@@ -28,6 +28,18 @@ public:
 	void set_y(int _i)
 	{
 		y = _i;
+	}
+	unsigned int get_id()
+	{
+		return id;
+	}
+	int get_x()
+	{
+		return x;
+	}
+	int get_y()
+	{
+		return y;
 	}
 	void print()
 	{

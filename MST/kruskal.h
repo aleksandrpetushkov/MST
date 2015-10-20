@@ -1,6 +1,8 @@
 #include <string>
+#include "node.h"
 
-class Kruskal 
+class kruskal
 {
-
+	node begin;
+	node end;
 };
