@@ -33,4 +33,12 @@ public:
 	{
 		return end;
 	}
+	bool operator<(const edge &right)const
+	{
+		return(this->weight < right.weight);
+	}
+	bool operator==(const edge &right)const
+	{
+		return(this->weight == right.weight);
+	}
 };
