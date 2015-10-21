@@ -60,8 +60,14 @@ void main()
 			cout << i + 1 << " - " << edges[i].getBegin().get_id() << " " << edges[i].getEnd().get_id() << " " << edges[i].get_weight() << endl;
 		}
 		vector<int> listNodes;
+
+		for (unsigned int i = 0; i < edges.size(); ++i) 
+		{
+			
 		for (unsigned int i = 0; i < edges.size() ; ++i)
 		{
+
+			
 			bool b = false;
 			bool e = false;
 			for (unsigned int j = 0; j < listNodes.size(); ++j) 
@@ -75,7 +81,10 @@ void main()
 					e = true;
 				}
 			}
-			if (b&&e) {	}
+			if (b&&e) 
+			{	
+				
+			}
 			else  
 			{
 				if (!b) 
@@ -89,7 +98,17 @@ void main()
 				edges_ost.push_back(edges[i]);
 			}
 		}
+			
+
+
+		}
+		
+		//*/
 		cout << edges_ost.size() << endl;
+		for (unsigned int i = 0; i < edges_ost.size(); ++i) 
+		{
+			cout << edges_ost[i].getBegin().get_id() << "  " << edges_ost[i].getEnd().get_id() << endl;
+		}
 		
 		system("pause");
 
