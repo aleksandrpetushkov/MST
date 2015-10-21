@@ -9,8 +9,6 @@ using namespace std;
 
 void main()
 {
-
-	
 	string name_in_file = "file.txt";
 	ifstream fs(name_in_file, ios::in);
 	if(fs)
@@ -40,10 +38,13 @@ void main()
 			edge *tmp;
 			for (unsigned int i =j+1; i < nodes.size(); ++i)
 			{
-				//edges.push_back(*(new edge((nodes[j]), nodes[i])));
+				edges.push_back(*(new edge((nodes[j]), nodes[i])));
 			}
 		}
-		
+		for (unsigned int i = 0; i < edges.size();++i)
+		{
+			cout << i<<" - "<< edges[i].getBegin().get_id()<<" "<< edges[i].getEnd().get_id()<<" "<< edges[i].get_weight() << endl;
+		}
 		system("pause");
 
 

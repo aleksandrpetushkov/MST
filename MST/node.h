@@ -10,6 +10,7 @@ private:
 	int x=0;
 	int y=0;
 public:
+
 	node() {}
 	node(int in[])
 	{
