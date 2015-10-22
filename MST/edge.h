@@ -7,6 +7,7 @@ class edge
 	node begin;
 	node end;
 	double weight;
+	//jfd
 
 public:
 	//edge(int i, int z){}
