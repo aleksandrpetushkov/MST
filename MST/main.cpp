@@ -61,16 +61,11 @@ void main()
 		}
 		vector<int> listNodes;
 
-		for (unsigned int i = 0; i < edges.size(); ++i) 
-		{
-			
 		for (unsigned int i = 0; i < edges.size() ; ++i)
 		{
-
-			
 			bool b = false;
 			bool e = false;
-			for (unsigned int j = 0; j < listNodes.size(); ++j) 
+			for (unsigned int j = 0; j < listNodes.size(); ++j) //проверяем список узлов которые обошли на наличие узлов текущей ветви, если
 			{
 				if (listNodes[j] == edges[i].getBegin().get_id())
 				{
@@ -80,10 +75,54 @@ void main()
 				{
 					e = true;
 				}
-			}
-			if (b&&e) 
-			{	
 				
+			}
+
+			if (b&&e) // если оба узла имются в списке узлов возможно ветвь образует цикл, а может и нет - проверяем
+			{	
+				vector<edge> tmp=edges_ost;
+				vector<int> imp;
+				bool rr = true;
+				imp.push_back(edges[i].getEnd().get_id());
+				while (tmp.size()!=0 && imp.size()!=0&&rr)
+				{
+					unsigned int zz = tmp.size();
+					for (unsigned int z1 = 0; z1 < tmp.size(); ++z1)
+					{
+						if (*imp.begin() == tmp[z1].getBegin().get_id())
+						{
+							if(tmp[z1].getEnd().get_id()!= edges[i].getBegin().get_id())
+							{
+								imp.push_back(tmp[z1].getEnd().get_id());
+								tmp.erase(tmp.begin() + z1);
+								--z1;
+							}
+							else
+							{
+								rr = false;
+							}
+							
+						}
+						else if(*imp.begin()==tmp[z1].getEnd().get_id())
+						{
+							if(tmp[z1].getBegin().get_id()!= edges[i].getBegin().get_id())
+							{
+								imp.push_back(tmp[z1].getBegin().get_id());
+								tmp.erase(tmp.begin() + z1);
+								--z1;
+							}
+							else
+							{
+								rr = false;
+							}
+						}
+					}
+					imp.erase(imp.begin());
+				}
+				if(rr)
+				{
+					edges_ost.push_back(edges[i]);
+				}
 			}
 			else  
 			{
@@ -98,21 +137,12 @@ void main()
 				edges_ost.push_back(edges[i]);
 			}
 		}
-			
-
-
-		}
-		
-		//*/
 		cout << edges_ost.size() << endl;
 		for (unsigned int i = 0; i < edges_ost.size(); ++i) 
 		{
 			cout << edges_ost[i].getBegin().get_id() << "  " << edges_ost[i].getEnd().get_id() << endl;
 		}
-		
 		system("pause");
-
-		
 	}
 	else
 	{
