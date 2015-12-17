@@ -10,8 +10,9 @@ class Kruskal
 {
 public:
 	Kruskal() {}
-	Kruskal(vector<edge>& edges)
+	Kruskal(vector<edge>& _edges)
 	{
+		edges = _edges;
 		sort(edges.begin(), edges.end()); // Сортеруем вектор, для этого в классе edges перегуржены операторы "<" "==" для сравнения.
 		vector<int> listNodes;
 
@@ -93,9 +94,13 @@ public:
 		}
 		
 	}
-	void add_node(unsigned int id, int x, int y)
+	unsigned int get_numberof_edges()
 	{
-		
+		return  edges.size();
+	}
+	unsigned int get_numberof_edges_ost()
+	{
+		return edges_ost.size();
 	}
 
 	vector<edge> get_ost()
@@ -103,6 +108,6 @@ public:
 		return edges_ost;
 	}
 protected:
-
+	vector<edge> edges;
 	vector<edge> edges_ost;
 };

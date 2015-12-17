@@ -13,7 +13,11 @@ public:
 	{
 		begin = _begin;
 		end = _end;
-		this->CalcWeigth();
+		CalcWeigth();
+	}
+	edge()
+	{
+		
 	}
 	void CalcWeigth()
 	{

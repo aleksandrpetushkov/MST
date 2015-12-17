@@ -12,6 +12,12 @@ private:
 public:
 
 	node() {}
+	node(int _id, int _x, int _y)
+	{
+		id = _id;
+		x = _x;
+		y = _y;
+	}
 	node(int in[])
 	{
 		id = in[0];
