@@ -1,5 +1,5 @@
 #include <iostream>
-//#include "node.h"
+#include "node.h"
 #include <math.h>
 
 class edge
@@ -7,10 +7,8 @@ class edge
 	node begin;
 	node end;
 	double weight;
-	//jfd
 
 public:
-	//edge(int i, int z){}
 	edge(node _begin, node _end)
 	{
 		begin = _begin;

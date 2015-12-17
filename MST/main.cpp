@@ -1,12 +1,66 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "node.h"
 #include <vector>
-#include "edge.h"
-#include <algorithm>    // std::sort
+#include "gtest\gtest.h"
+#include "Kruskal.h"
+
 
 using namespace std;
+
+TEST(Kruskal)
+{
+	vector<node> nodes;
+	vector<edge> edges;
+	vector<edge> edges_ost;
+	node ntmp;
+	ntmp.set_id(1);
+	ntmp.set_x(20);
+	ntmp.set_y(30);
+	nodes.push_back(ntmp);
+
+	ntmp.set_id(2);
+	ntmp.set_x(3);
+	ntmp.set_y(11);
+	nodes.push_back(ntmp);
+
+	ntmp.set_id(3);
+	ntmp.set_x(9);
+	ntmp.set_y(1);
+	nodes.push_back(ntmp);
+
+	ntmp.set_id(4);
+	ntmp.set_x(0);
+	ntmp.set_y(15);
+	nodes.push_back(ntmp);
+
+	ntmp.set_id(5);
+	ntmp.set_x(13);
+	ntmp.set_y(2);
+	nodes.push_back(ntmp);
+	
+	ntmp.set_id(6);
+	ntmp.set_x(5);
+	ntmp.set_y(18);
+	nodes.push_back(ntmp);
+	
+	ntmp.set_id(7);
+	ntmp.set_x(9);
+	ntmp.set_y(3);
+	nodes.push_back(ntmp);
+
+	for (unsigned int j = 0; j < nodes.size() - 1; ++j)
+	{
+		for (unsigned int i = j + 1; i < nodes.size(); ++i)
+		{
+			edges.push_back(*(new edge((nodes[j]), nodes[i])));
+		}
+	}
+	Kruskal kruskal(edges);
+	edges_ost = kruskal.get_ost();
+
+}
+
 
 void main()
 {
@@ -18,9 +72,10 @@ void main()
 		vector<edge> edges;
 		vector<edge> edges_ost;
 		
+		
 		while(!fs.eof())
 		{
-			int tmp;
+			int tmp(0);
 			node ntmp;
 			fs >> tmp;
 			ntmp.set_id(tmp);
@@ -31,12 +86,13 @@ void main()
 			nodes.push_back(ntmp);
 		}
 		fs.close();
-		cout << nodes.size()<<endl;
+		//*Out nodes:
+		cout << "Nodes:" << endl;
 		for (unsigned int i = 0; i < nodes.size();++i)
 		{
 			nodes[i].print();
 		}
-		
+		//*/
 		//загружаем ноды
 		for (unsigned int j = 0 ; j < nodes.size()-1; ++j) 
 		{
@@ -45,111 +101,19 @@ void main()
 				edges.push_back(*(new edge((nodes[j]), nodes[i])));
 			}
 		}
-		//*
-		for (unsigned int i = 0; i < edges.size();++i)
-		{
-			cout << i+1<<" - "<< edges[i].getBegin().get_id()<<" "<< edges[i].getEnd().get_id()<<" "<< edges[i].get_weight() << endl;
-		}
+		Kruskal kruskal(edges);
 
-		//*/
-		cout << "----------------------------------------------------------\n";
-		sort(edges.begin(), edges.end()); // Сортеруем вектор, для этого в классе edges перегуржены операторы "<" "==" для сравнения.
-
-		for (unsigned int i = 0; i < edges.size(); ++i)
-		{
-			cout << i + 1 << " - " << edges[i].getBegin().get_id() << " " << edges[i].getEnd().get_id() << " " << edges[i].get_weight() << endl;
-		}
-		vector<int> listNodes;
-
-		for (unsigned int i = 0; i < edges.size() ; ++i)
-		{
-			bool b = false;
-			bool e = false;
-			for (unsigned int j = 0; j < listNodes.size(); ++j) //проверяем список узлов которые обошли на наличие узлов текущей ветви, если
-			{
-				if (listNodes[j] == edges[i].getBegin().get_id())
-				{
-					b = true;
-				}
-				if (listNodes[j] == edges[i].getEnd().get_id()) 
-				{
-					e = true;
-				}
-				
-			}
-
-			if (b&&e) // если оба узла имются в списке узлов возможно ветвь образует цикл, а может и нет - проверяем
-			{	
-				vector<edge> tmp=edges_ost;
-				vector<int> imp;
-				bool rr = true;
-				imp.push_back(edges[i].getEnd().get_id());
-				while (tmp.size()!=0 && imp.size()!=0&&rr)
-				{
-					unsigned int zz = tmp.size();
-					for (unsigned int z1 = 0; z1 < tmp.size(); ++z1)
-					{
-						if (*imp.begin() == tmp[z1].getBegin().get_id())
-						{
-							if(tmp[z1].getEnd().get_id()!= edges[i].getBegin().get_id())
-							{
-								imp.push_back(tmp[z1].getEnd().get_id());
-								tmp.erase(tmp.begin() + z1);
-								--z1;
-							}
-							else
-							{
-								rr = false;
-							}
-							
-						}
-						else if(*imp.begin()==tmp[z1].getEnd().get_id())
-						{
-							if(tmp[z1].getBegin().get_id()!= edges[i].getBegin().get_id())
-							{
-								imp.push_back(tmp[z1].getBegin().get_id());
-								tmp.erase(tmp.begin() + z1);
-								--z1;
-							}
-							else
-							{
-								rr = false;
-							}
-						}
-					}
-					imp.erase(imp.begin());
-				}
-				if(rr)
-				{
-					edges_ost.push_back(edges[i]);
-				}
-			}
-			else  
-			{
-				if (!b) 
-				{
-					listNodes.push_back(edges[i].getBegin().get_id());
-				}
-				if (!e) 
-				{
-					listNodes.push_back(edges[i].getEnd().get_id());
-				}
-				edges_ost.push_back(edges[i]);
-			}
-		}
+		edges_ost = kruskal.get_ost();
 		cout << edges_ost.size() << endl;
-		for (unsigned int i = 0; i < edges_ost.size(); ++i) 
+		for (unsigned int i = 0; i < edges_ost.size(); ++i)
 		{
 			cout << edges_ost[i].getBegin().get_id() << "  " << edges_ost[i].getEnd().get_id() << endl;
 		}
 		system("pause");
-	}
+		}
 	else
 	{
 		cerr << "Error: cannot open file" << endl;
 		system("pause");
 	}
-
-		
-	//cout << "Hello world";
-}
+} 
