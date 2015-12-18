@@ -24,6 +24,12 @@ public:
 		x = in[1];
 		y = in[2];
 	}
+	void set(int _id, int _x, int _y)
+	{
+		id = _id;
+		x = _x;
+		y = _y;
+	}
 	void set_id(int _i)
 	{
 		id = _i;
@@ -51,5 +57,13 @@ public:
 	void print()
 	{
 		cout << "id - " << id << " x - " << x << " y - " << y << endl;
+	}
+	bool operator==(const node& rhm)const
+	{
+		if(id==rhm.id&&x==rhm.x&&y==rhm.y)
+		{
+			return true;
+		}
+		return false;
 	}
 };
