@@ -84,9 +84,11 @@ TEST(Kruskal)
 
 	for (unsigned int j = 0; j < nodes.size() - 1; ++j)
 	{
+		edge tmp;
 		for (unsigned int i = j + 1; i < nodes.size(); ++i)
 		{
-			edges.push_back(*(new edge((nodes[j]), nodes[i])));
+			tmp.set(nodes[j], nodes[i]);
+			edges.push_back(tmp);
 		}
 	}
 	Kruskal kruskal(edges);
@@ -137,9 +139,11 @@ int main(int argc, char* argv[])
 		//загружаем ноды
 		for (unsigned int j = 0; j < nodes.size() - 1; ++j)
 		{
+			edge tmp;
 			for (unsigned int i = j + 1; i < nodes.size(); ++i)
 			{
-				edges.push_back(*(new edge((nodes[j]), nodes[i])));
+				tmp.set(nodes[j], nodes[i]);
+				edges.push_back(tmp);
 			}
 		}
 		Kruskal kruskal(edges);
@@ -150,7 +154,7 @@ int main(int argc, char* argv[])
 		{
 			cout << edges_ost[i].getBegin().get_id() << "  " << edges_ost[i].getEnd().get_id() << endl;
 		}
-		cout << "-------------------------------------------------------------\nTESTS\n<------------------------------------------------------------\n";
+		cout << "-------------------------------------------------------------\nTESTS\n------------------------------------------------------------\n";
 		::testing::InitGoogleTest(&argc, argv);
 		RUN_ALL_TESTS();
 		system("pause");
